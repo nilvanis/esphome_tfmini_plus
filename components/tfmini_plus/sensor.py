@@ -50,7 +50,7 @@ CONFIG_SCHEMA = (
                 unit_of_measurement="cm",
                 accuracy_decimals=0,
                 device_class=DEVICE_CLASS_DISTANCE,
-                icon=ICON_RULER,
+                icon="mdi:arrow-expand-horizontal",
             ),
             cv.Optional(CONF_SIGNAL_STRENGTH): sensor.sensor_schema(
                 accuracy_decimals=0,
