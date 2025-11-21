@@ -5,8 +5,6 @@ from esphome.const import (
     CONF_ID,
     DEVICE_CLASS_DISTANCE,
     DEVICE_CLASS_TEMPERATURE,
-    ICON_RULER,
-    ICON_SIGNAL,
     ICON_THERMOMETER,
     STATE_CLASS_MEASUREMENT,
     UNIT_CELSIUS,
@@ -55,7 +53,7 @@ CONFIG_SCHEMA = (
             cv.Optional(CONF_SIGNAL_STRENGTH): sensor.sensor_schema(
                 accuracy_decimals=0,
                 state_class=STATE_CLASS_MEASUREMENT,
-                icon=ICON_SIGNAL,
+                icon="mdi:signal",
                 entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
             ),
             cv.Optional(CONF_TEMPERATURE): sensor.sensor_schema(
@@ -68,7 +66,7 @@ CONFIG_SCHEMA = (
             ),
             cv.Optional(CONF_STATUS): text_sensor.text_sensor_schema(
                 entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
-                icon="mdi:text",
+                icon="mdi:information-outline",
             ),
         }
     )
