@@ -112,8 +112,6 @@ void TFMiniPlusComponent::update() {
   const uint32_t now = millis();
 
   if (this->state_ == DeviceState::SLEEPING) {
-    // Force-unavailable publish each cycle to avoid filters masking the state change.
-    this->published_unavailable_ = false;
     this->set_status_(StatusCode::SLEEPING);
     this->publish_unavailable_();
     return;
@@ -412,7 +410,7 @@ void TFMiniPlusComponent::sleep_service() {
   ESP_LOGI(TAG, "Putting TFmini Plus into sleep (frame rate 0)");
   if (this->send_command_(SET_FRAME_RATE, FRAME_0)) {
     this->state_ = DeviceState::SLEEPING;
-    this->published_unavailable_ = false;
+    this->published_unavailable_ = false;  // allow a single unavailable publish on transition
     this->set_status_(StatusCode::SLEEPING);
     this->publish_unavailable_();
   } else {
