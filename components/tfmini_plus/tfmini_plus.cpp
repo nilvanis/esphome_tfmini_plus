@@ -144,7 +144,9 @@ void TFMiniPlusComponent::update() {
   }
 
   // If no good frame for more than 1s, declare offline.
-  if (this->last_good_frame_ms_ == 0 || (now - this->last_good_frame_ms_) > 1000) {
+  const bool in_wake_grace = (this->wake_grace_until_ != 0 && now <= this->wake_grace_until_);
+  const uint32_t offline_timeout_ms = in_wake_grace ? 5000 : 1000;
+  if (this->last_good_frame_ms_ == 0 || (now - this->last_good_frame_ms_) > offline_timeout_ms) {
     if (this->state_ != DeviceState::OFFLINE) {
       this->mark_offline_("No valid frame within 1s", this->last_status_);
       // After declaring offline due to missing frames, retry scale doubles as needed.
@@ -430,7 +432,7 @@ void TFMiniPlusComponent::wake_service() {
     this->published_unavailable_ = false;
     const uint32_t now = millis();
     this->last_retry_ms_ = 0;  // force immediate retry
-    this->wake_grace_until_ = now + 500;  // quick retry window after wake
+    this->wake_grace_until_ = now + 5000;  // quick retry window after wake
     this->set_status_(StatusCode::READY);
   } else {
     ESP_LOGW(TAG, "Wake command failed");
