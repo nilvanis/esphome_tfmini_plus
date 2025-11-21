@@ -1,6 +1,9 @@
 # TFmini Plus for ESPHome
 
-ESPHome external component adding plug-and-play support for the Benewake TFmini Plus LiDAR. Based on [TFMini-Plus](https://github.com/budryerson/TFMini-Plus) library.
+![Benewake TFMini-Plus](tfmini-plus.png)
+
+ESPHome external component adding plug-and-play support for the [Benewake TFmini-Plus LiDAR](https://en.benewake.com/TFminiPlus/index.html).\
+Based on [TFMini-Plus](https://github.com/budryerson/TFMini-Plus) library.
 
 ## Features
 
@@ -23,7 +26,7 @@ ESPHome external component adding plug-and-play support for the Benewake TFmini 
 
     ```yaml
     external_components:
-      - source: github://nilvanis/esphome_tfmini_plus@main
+      - source: github://nilvanis/esphome-tfmini-plus@main
         components: [tfmini_plus]
     ```
 
@@ -68,11 +71,12 @@ ESPHome external component adding plug-and-play support for the Benewake TFmini 
         status:
           name: "TFMini Plus Status"
     ```
-[!TIP]
-> Pair `frame_rate` with `update_interval` for better results.\
-> e.g., 20 Hz ↔ 50 ms, because:\
-> 20Hz = 20/s\
-> 50ms = 20s (1s is 1000ms; 1000ms/50ms = 20)
+
+    > [!TIP]
+    > Pair `frame_rate` with `update_interval` for better results.\
+    > e.g., 20 Hz ↔ 50 ms, because:\
+    > 20Hz = 20/s\
+    > 50ms = 20s (1s is 1000ms; 1000ms/50ms = 20)
 
 5) Optional wake/sleep automations (example with a LED strip):
 
@@ -86,10 +90,10 @@ ESPHome external component adding plug-and-play support for the Benewake TFmini 
           - lambda: 'id(tfmini)->sleep_service();'
     ```
 
-[!TIP]
-> Services can be also called from Home Assistant via API:
-> - `esphome.<node_name>_tfmini_plus_wake`
-> - `esphome.<node_name>_tfmini_plus_sleep`
+    > [!TIP]
+    > Services can be also called from Home Assistant via API:
+    > - `esphome.<node_name>_tfmini_plus_wake`
+    > - `esphome.<node_name>_tfmini_plus_sleep`
 
 6) Performance considerations:
 
