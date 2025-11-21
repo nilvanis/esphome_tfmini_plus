@@ -147,6 +147,8 @@ void TFMiniPlusComponent::update() {
   if (this->last_good_frame_ms_ == 0 || (now - this->last_good_frame_ms_) > 1000) {
     if (this->state_ != DeviceState::OFFLINE) {
       this->mark_offline_("No valid frame within 1s", this->last_status_);
+      // After declaring offline due to missing frames, retry scale doubles as needed.
+      this->last_retry_ms_ = now;
     }
   }
 }
@@ -394,6 +396,9 @@ void TFMiniPlusComponent::mark_offline_(const char *reason, StatusCode status) {
   this->publish_unavailable_();
   // Allow immediate retries during wake grace.
   if (this->wake_grace_until_ != 0 && millis() <= this->wake_grace_until_) {
+    this->last_retry_ms_ = 0;
+  } else if (status == StatusCode::TIMEOUT) {
+    // Retry sooner after a timeout by resetting the backoff.
     this->last_retry_ms_ = 0;
   }
 }
