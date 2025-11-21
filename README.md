@@ -1,6 +1,6 @@
 # ESPHome TFmini Plus External Component
 
-ESPHome external component to read the TFmini Plus LiDAR over UART. Handles temporary disconnects gracefully, exposes core measurements, and adds sleep/wake services for power saving.
+ESPHome external component to read the TFmini Plus LiDAR over UART. Handles temporary disconnects gracefully, exposes core measurements, and adds sleep/wake services for power saving. Based on [TFMini-Plus](https://github.com/budryerson/TFMini-Plus) library.
 
 ## Features
 
@@ -22,6 +22,12 @@ external_components:
       type: git
       url: https://github.com/nilvanis/esphome_tfmini_plus
     components: [tfmini_plus]
+
+# Highly recommended to disable DEBUG logs
+# in case of high rate update_interval
+logger:
+  level: INFO
+
 
 uart:
   id: tfmmini
